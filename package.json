@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "firebase-admin": "^12.1.1",
+    "mongodb": "^6.7.0",
+    "mongoose": "^8.4.1"
+  },
+  "name": "dekora-backend",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "populate": "node scripts/populateFlowers.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
