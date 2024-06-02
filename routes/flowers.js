@@ -1,8 +1,7 @@
-const router = require('express').Router();
-const { getFlowers, addFlower } = require('../controllers/flowerController');
-const verifyToken = require('../middleware/authMiddleware');
+const express = require("express");
+const router = express.Router();
+const flowerController = require("../controllers/flowerController");
 
-router.route('/').get(getFlowers);
-router.route('/add').post(verifyToken, addFlower);
+router.get("/", flowerController.getFlowers);
 
 module.exports = router;
