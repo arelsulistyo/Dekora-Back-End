@@ -22,15 +22,19 @@ app.use(express.json());
 // Database connection
 connectDB();
 
-
 // Routes
 const flowerRouter = require("./routes/flowers");
 const cartRouter = require("./routes/cart");
 const transactionRouter = require("./routes/transactions");
+const takeCartRouter = require("./routes/takeCart"); // Add this line
 
 app.use("/flowers", flowerRouter);
 app.use("/cart", cartRouter);
 app.use("/transactions", transactionRouter);
+app.use("/takeCart", takeCartRouter); // Add this line
+
+console.log("Registered routes: ");
+console.log(app._router.stack);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
