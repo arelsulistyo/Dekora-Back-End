@@ -33,9 +33,6 @@ app.use("/cart", cartRouter);
 app.use("/transactions", transactionRouter);
 app.use("/takeCart", takeCartRouter); // Add this line
 
-console.log("Registered routes: ");
-console.log(app._router.stack);
-
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
