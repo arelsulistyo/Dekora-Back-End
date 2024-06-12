@@ -1,6 +1,11 @@
 const Transaction = require("../models/transaction.model");
+const FlowerController = require("../controllers/flowerController");
+const CartController = require("../controllers/cartController");
 
 exports.createTransaction = async (req, res) => {
+  const session = await Transaction.startSession();
+  session.startTransaction();
+
   try {
     const {
       userId,
@@ -22,13 +27,28 @@ exports.createTransaction = async (req, res) => {
       productProtection,
     });
 
-    await transaction.save();
+    await transaction.save({ session });
+
+    for (const item of items) {
+      if (!item.flowerId || !item.quantity) {
+        throw new Error("Invalid item format");
+      }
+      await FlowerController.reduceStock(item.flowerId, item.quantity, session);
+    }
+
+    await CartController.removeItemsFromCart(userId, items, session);
+
+    await session.commitTransaction();
+    session.endSession();
     res.status(201).json({ message: "Transaction created successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Failed to create transaction", error });
+    await session.abortTransaction();
+    session.endSession();
+    res
+      .status(500)
+      .json({ message: "Failed to create transaction", error: error.message });
   }
 };
-
 exports.getUserTransactions = async (req, res) => {
   try {
     const { userId } = req.params;

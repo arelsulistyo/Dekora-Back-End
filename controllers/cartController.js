@@ -1,6 +1,19 @@
 // controllers/cartController.js
 const Cart = require("../models/cart.model");
 
+exports.removeItemsFromCart = async (userId, items, session) => {
+  try {
+    for (const item of items) {
+      await Cart.findOneAndDelete({
+        userId: userId,
+        flowerId: item.flowerId,
+      }).session(session);
+    }
+  } catch (error) {
+    throw new Error("Failed to remove items from cart");
+  }
+};
+
 exports.addItemToCart = async (req, res) => {
   const { userId, flowerId, quantity } = req.body;
 
