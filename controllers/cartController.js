@@ -1,5 +1,6 @@
 // controllers/cartController.js
 const Cart = require("../models/cart.model");
+const Flower = require("../models/flower.model");
 
 exports.removeItemsFromCart = async (userId, items, session) => {
   try {
@@ -51,18 +52,29 @@ exports.updateCartItem = async (req, res) => {
 
   try {
     const existingItem = await Cart.findOne({ userId, flowerId });
+    const flower = await Flower.findById(flowerId);
+
+    if (!flower) {
+      return res.status(404).json({ message: "Flower not found" });
+    }
 
     if (existingItem) {
+      if (quantity > flower.stock) {
+        return res.status(400).json({
+          message: `Requested quantity for ${flower.name} exceeds available stock of ${flower.stock}`,
+        });
+      }
+
       if (quantity <= 0) {
         await Cart.findByIdAndDelete(existingItem._id);
-        res.status(200).json({ message: "Cart item removed" });
+        return res.status(200).json({ message: "Cart item removed" });
       } else {
         existingItem.quantity = quantity;
         await existingItem.save();
-        res.status(200).json({ message: "Cart item updated" });
+        return res.status(200).json({ message: "Cart item updated" });
       }
     } else {
-      res.status(404).json({ message: "Item not found in cart" });
+      return res.status(404).json({ message: "Item not found in cart" });
     }
   } catch (error) {
     res.status(500).json({ message: "Failed to update cart item", error });
