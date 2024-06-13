@@ -14,7 +14,7 @@ const flowers = [
     name: "Dahlia",
     imageUrl: "assets/images/flower1.png",
     type: "Indoor",
-    price: 31.4,
+    price: 10000,
     size: "Medium",
     description:
       'Chrysanthemums, or simply "mums," are vibrant flowers with diverse colors and shapes. They symbolize happiness and longevity in many cultures and are commonly used in celebrations like weddings and festivals. Mums are easy to grow in sunny spots and well-drained soil, making them perfect for gardens or containers.',
@@ -24,7 +24,7 @@ const flowers = [
     name: "Roses",
     imageUrl: "assets/images/flower2.png",
     type: "Outdoor",
-    price: 25.0,
+    price: 1000,
     size: "Small",
     description:
       "Roses are a symbol of love and romance. They come in a variety of colors and sizes and are perfect for gardens and bouquets.",
@@ -33,7 +33,7 @@ const flowers = [
   {
     name: "Tulip",
     imageUrl: "assets/images/flower3.png",
-    price: 20.0,
+    price: 20000,
     type: "Outdoor",
     size: "Small",
     description:
