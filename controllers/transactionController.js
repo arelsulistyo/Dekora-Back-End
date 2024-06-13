@@ -11,6 +11,7 @@ exports.createTransaction = async (req, res) => {
       userId,
       items,
       totalAmount,
+      recipientName,
       shippingAddress,
       paymentMethod,
       shippingMethod,
@@ -21,6 +22,7 @@ exports.createTransaction = async (req, res) => {
       userId,
       items,
       totalAmount,
+      recipientName,
       shippingAddress,
       paymentMethod,
       shippingMethod,
@@ -49,6 +51,7 @@ exports.createTransaction = async (req, res) => {
       .json({ message: "Failed to create transaction", error: error.message });
   }
 };
+
 exports.getUserTransactions = async (req, res) => {
   try {
     const { userId } = req.params;

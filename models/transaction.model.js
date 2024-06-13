@@ -19,6 +19,10 @@ const transactionSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  recipientName: {
+    type: String,
+    required: true,
+  },
   shippingAddress: {
     type: String,
     required: true,
